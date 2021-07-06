@@ -6,12 +6,15 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import InsertCommentRoundedIcon from '@material-ui/icons/InsertCommentRounded';
 import ShareIcon from '@material-ui/icons/Share';
 import SendIcon from '@material-ui/icons/Send';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice.js';
+
 function Post({name,description,message,photoUrl}) {
-     
+     const user= useSelector(selectUser);
     return (
         <div className="post">
         <div className="post_header">
-            <Avatar/>
+            <Avatar>{user.displayName[0]}</Avatar>
 
             <div className="post_info">
                 <h2>{name}</h2>

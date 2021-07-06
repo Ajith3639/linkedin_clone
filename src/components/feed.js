@@ -9,11 +9,14 @@ import TodayIcon from '@material-ui/icons/Today';
 import Post from "./Post.js";
 import {db} from "../firebase";
 import firebase from "firebase";
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice.js';
 
 
 function Feed() {
     const [input,setInput]=useState("")
     const [posts,setPosts]=useState([]);
+    const user= useSelector(selectUser);
 
     useEffect(()=>{
         db.collection("posts").orderBy("timestamp","desc").onSnapshot(snapshot => (
@@ -29,10 +32,10 @@ function Feed() {
     const sendPost=(e)=>{
         e.preventDefault();
         db.collection('posts').add({
-           name:"Ajith",
-           description:"this is test",
+           name:user.displayName,
+           description:user.email,
            message:input,
-            photoUrl: "",
+            
             timestamp:firebase.firestore.FieldValue.serverTimestamp(),
 
 });
